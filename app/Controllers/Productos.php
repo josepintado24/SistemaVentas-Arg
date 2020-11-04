@@ -14,6 +14,63 @@ class Productos extends BaseController{
 		$this->productos=new ProductosModel;
 		$this->unidades=new UnidadesModel;
 		$this->categorias=new CategoriaModel;
+
+		helper(['form']);
+
+		$this->reglas=[
+			'codigo'=>[
+				'rules'=>'required|is_unique[productos.codigo]',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.',
+					'is_unique'=>'El campo {field} debe ser unico'
+				]
+			],
+			'nombre'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'precio_venta'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'precio_compra'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'stock_minimo'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'id_unidad'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'id_categoria'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'inventariable'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			]
+
+		];
+
+
 	}
 	public function index($activo=1){
 		$productos=$this->productos->where('activo',$activo)->findAll();
@@ -51,7 +108,7 @@ class Productos extends BaseController{
 		echo view('footer');
 	}
 	public function insertar(){
-		if ($this->request->getMethod()=="post"){
+		if ($this->request->getMethod()=="post" && $this->validate($this->reglas)){
 			$this->productos->save([
 				'nombre'=>$this->request->getPost('nombre'),
 				'codigo'=>$this->request->getPost('codigo'),
@@ -65,9 +122,13 @@ class Productos extends BaseController{
 			return redirect()->to(base_url().'/productos');	
 		}
 		else{
+			$unidades=$this->unidades->where('activo',1)->findAll();
+			$categorias=$this->categorias->where('activo',1)->findAll();
 			$data=[
 				'titulo'=>'Agregar producto',
-				'validation'=> $this->validator
+				'unidades'=>$unidades,
+				'categorias'=>$categorias,
+				'validation'=>$this->validator
 			];
 			echo view('header');
 			echo view('productos/nuevo',$data);

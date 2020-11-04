@@ -40,7 +40,6 @@
                                             <Select class="form-control" id="id_categoria" name="id_categoria" typr="text"  require>
                                                 <option value="">  Seleccionar Categoria </option> 
                                                 <?php foreach($categorias as $categoria){ ?>
-                                                    
                                                     <option value="<?php echo $categoria['id']; ?>" <?php if ($categoria['id']==$producto['id_categoria']){ echo 'selected'; } ?> > 
                                                          <?php echo $categoria['nombre']; ?>  
                                                     </option> 
