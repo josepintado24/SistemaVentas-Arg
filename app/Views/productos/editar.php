@@ -2,21 +2,24 @@
                 <main>
                     <div class="container-fluid">
                        <h4 class="mt-4"><?php echo $titulo;?></h4>
-                       <?php \Config\Services::validation()->listErrors(); ?>
-
+                       <?php if (isset($validation)) {?>
+                            <div class="alert alert-danger">
+                                <?php echo $validation->listErrors(); ?>
+                            </div>
+                       <?php }?>
                             <form method="POST" action="<?php echo base_url();?>/productos/actualizar" autocomplete="off">
-                            <?php csrf_field(); ?>
+                            
                             <input type ="hidden" id="id" name="id" value="<?php echo $producto['id']; ?>">
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
                                             <label for="">código</label>
-                                            <input class="form-control" id="codigo" name="codigo" typr="text" value="<?php echo $producto['codigo']; ?>" autofocus require >
+                                            <input class="form-control" id="codigo" name="codigo" typr="text" value="<?php echo $producto['codigo']; ?>" autofocus  >
                                         </div>
 
                                         <div class="col-12 col-sm-6">
                                             <label for="">Nombre</label>
-                                            <input class="form-control" id="nombre" name="nombre" typr="text" value="<?php echo $producto['nombre']; ?>"require>
+                                            <input class="form-control" id="nombre" name="nombre" typr="text" value="<?php echo $producto['nombre']; ?>">
                                         </div>
                                     </div>    
                                 </div>
@@ -24,7 +27,7 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
                                             <label for="">Unidad</label>
-                                            <Select class="form-control" id="id_unidad" name="id_unidad" typr="text"  require>
+                                            <Select class="form-control" id="id_unidad" name="id_unidad" typr="text"  >
                                                 <option value="">  Seleccionar unidad </option> 
                                                 <?php foreach($unidades as $unidad){ ?>
                                                     
@@ -37,7 +40,7 @@
 
                                         <div class="col-12 col-sm-6">
                                         <label for="">Categoria</label>
-                                            <Select class="form-control" id="id_categoria" name="id_categoria" typr="text"  require>
+                                            <Select class="form-control" id="id_categoria" name="id_categoria" typr="text"  >
                                                 <option value="">  Seleccionar Categoria </option> 
                                                 <?php foreach($categorias as $categoria){ ?>
                                                     <option value="<?php echo $categoria['id']; ?>" <?php if ($categoria['id']==$producto['id_categoria']){ echo 'selected'; } ?> > 
@@ -53,12 +56,12 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
                                             <label for="">Precio venta</label>
-                                            <input value="<?php echo $producto['precio_venta']; ?>" class="form-control" id="precio_venta" name="precio_venta" typr="text"  require>
+                                            <input value="<?php echo $producto['precio_venta']; ?>" class="form-control" id="precio_venta" name="precio_venta" typr="text"  >
                                         </div>
 
                                         <div class="col-12 col-sm-6">
                                             <label for="">Precio compra</label>
-                                            <input  value="<?php echo $producto['precio_compra']; ?>" class="form-control" id="precio_compra" name="precio_compra" typr="text" require>
+                                            <input  value="<?php echo $producto['precio_compra']; ?>" class="form-control" id="precio_compra" name="precio_compra" typr="text" >
                                         </div>
                                     </div>    
                                 </div>
@@ -67,7 +70,7 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
                                             <label for="">Stock minimo</label>
-                                            <input value="<?php echo $producto['stock_minimo']; ?>" class="form-control" id="stock_minimo" name="stock_minimo" typr="text"  require>
+                                            <input value="<?php echo $producto['stock_minimo']; ?>" class="form-control" id="stock_minimo" name="stock_minimo" typr="text"  >
                                         </div>
 
                                         <div class="col-12 col-sm-6">

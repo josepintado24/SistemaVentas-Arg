@@ -14,12 +14,12 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
                                             <label for="">Nombre</label>
-                                            <input value="<?php echo $datos['nombre']; ?> " class="form-control" id="nombre" name="nombre" typr="text" autofocus require>
+                                            <input value="<?php echo $datos['nombre']; ?> " class="form-control" id="nombre" name="nombre" typr="text" autofocus >
                                         </div>
 
                                         <div class="col-12 col-sm-6">
                                             <label for="">Nombre corto</label>
-                                            <input value="<?php echo $datos['nombre_corto'];?> " class="form-control" id="nombre_corto" name="nombre_corto" typr="text" require>
+                                            <input value="<?php echo $datos['nombre_corto'];?> " class="form-control" id="nombre_corto" name="nombre_corto" typr="text" >
                                         </div>
                                     </div>    
                                 </div>

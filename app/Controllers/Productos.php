@@ -137,36 +137,49 @@ class Productos extends BaseController{
 		
 	}
 
-	public function editar($id){
+	public function editar($id, $valid=null){
 		$unidades=$this->unidades->where('activo',1)->findAll();
 		$categorias=$this->categorias->where('activo',1)->findAll();
 		$producto=$this->productos->where('id',$id)->first();
-		$data=[
+		if ($valid!=null){
+			$data=[
 			'titulo'=>'Editar producto',
 			 'producto'=>$producto,
 			 'unidades'=>$unidades,
-			 'categorias'=>$categorias
-		];
+			 'categorias'=>$categorias,
+			 'validation'=>$valid
+			];
+		}else{
+			$data=[
+				'titulo'=>'Editar producto',
+				 'producto'=>$producto,
+				 'unidades'=>$unidades,
+				 'categorias'=>$categorias
+			];
+		}
+		
 		
 		echo view('header');
 		echo view('productos/editar',$data);
 		echo view('footer');
 	}
 	public function actualizar(){
-		
-		$this->productos->update(
-			$this->request->getPost('id'),
-			['nombre'=>$this->request->getPost('nombre'),
-			'codigo'=>$this->request->getPost('codigo'),
-			'precio_venta'=>$this->request->getPost('precio_venta'),
-			'precio_compra'=>$this->request->getPost('precio_compra'),
-			'stock_minimo'=>$this->request->getPost('stock_minimo'),
-			'id_unidad'=>$this->request->getPost('id_unidad'),
-			'id_categoria'=>$this->request->getPost('id_categoria'),
-			'inventariable'=>$this->request->getPost('inventariable')]);
-			
-		return redirect()->to(base_url().'/productos');	
-
+		if ($this->request->getMethod()=="post" && $this->validate($this->reglas)){
+			$this->productos->update(
+				$this->request->getPost('id'),
+				['nombre'=>$this->request->getPost('nombre'),
+				'codigo'=>$this->request->getPost('codigo'),
+				'precio_venta'=>$this->request->getPost('precio_venta'),
+				'precio_compra'=>$this->request->getPost('precio_compra'),
+				'stock_minimo'=>$this->request->getPost('stock_minimo'),
+				'id_unidad'=>$this->request->getPost('id_unidad'),
+				'id_categoria'=>$this->request->getPost('id_categoria'),
+				'inventariable'=>$this->request->getPost('inventariable')]);
+				
+			return redirect()->to(base_url().'/productos');	
+		}else{
+			return $this->editar($this->request->getPost('id'),$this->validator);
+		}
 	}
 
 	public function eliminar($id){
