@@ -2,99 +2,145 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\UnidadesModel;
+use App\Models\ClientesModel;
 
-class Unidades extends BaseController{
+class clientes extends BaseController{
 
-	protected $unidades;
+	protected $clientes;
+	protected $reglas;
 
 	public function __construct(){
-		$this->unidades=new UnidadesModel;
+		$this->clientes=new ClientesModel;
+		helper(['form']);
+
+		$this->reglas=[
+			'nombre'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'direccion'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+				],
+			'telefono'=>[
+					'rules'=>'required',
+					'errors'=>[
+						'required'=>'El campo {field} es obligatorio.'
+					]
+			],
+			'correo'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			]
+		];
 	}
 	public function index($activo=1){
-		$unidades=$this->unidades->where('activo',$activo)->findAll();
+		$clientes=$this->clientes->where('activo',$activo)->findAll();
 		$data=[
-			'titulo'=>'Unidades',
-			 'datos'=>$unidades
+			'titulo'=>'clientes',
+			 'datos'=>$clientes
 		];
 		echo view('header');
-		echo view('unidades/unidades', $data);
+		echo view('clientes/clientes', $data);
 		echo view('footer');
 	}
 	public function eliminados($activo=0){
-		$unidades=$this->unidades->where('activo',$activo)->findAll();
+		$clientes=$this->clientes->where('activo',$activo)->findAll();
 		$data=[
-			'titulo'=>'Unidades Eliminadas',
-			 'datos'=>$unidades
+			'titulo'=>'clientes Eliminadas',
+			 'datos'=>$clientes
 		];
 		echo view('header');
-		echo view('unidades/eliminados', $data);
+		echo view('clientes/eliminados', $data);
 		echo view('footer');
 	}
 
 	public function nuevo(){
 		$data=[
-			'titulo'=>'Agregar unidades'
+			'titulo'=>'Agregar clientes'
 		];
 		echo view('header');
-		echo view('unidades/nuevo',$data);
+		echo view('clientes/nuevo',$data);
 		echo view('footer');
 	}
 	public function insertar(){
-		if ($this->request->getMethod()=="post" && $this->validate([
-			'nombre'=>'required',
-			'nombre_corto'=>'required'
-		])){
-			$this->unidades->save([
-				'nombre'=>$this->request->getPost('nombre'),
-				'nombre_corto'=>$this->request->getPost('nombre_corto')
+		if ($this->request->getMethod()=="post" && $this->validate($this->reglas)){
+			$this->clientes->save([
+					'nombre'=>$this->request->getPost('nombre'),
+					'direccion'=>$this->request->getPost('direccion'),
+					'telefono'=>$this->request->getPost('telefono'),
+					'correo'=>$this->request->getPost('correo')
 				]);
-			return redirect()->to(base_url().'/unidades');	
+			return redirect()->to(base_url().'/clientes');	
 		}
 		else{
 			$data=[
-				'titulo'=>'Agregar unidades',
+				'titulo'=>'Agregar clientes',
 				'validation'=> $this->validator
 			];
 			echo view('header');
-			echo view('unidades/nuevo',$data);
+			echo view('clientes/nuevo',$data);
 			echo view('footer');
 		}
 		
 	}
 
-	public function editar($id){
-		$unidad=$this->unidades->where('id',$id)->first();
-		$data=[
-			'titulo'=>'Editar Unidad',
-			 'datos'=>$unidad
+	public function editar($id, $valid=null){
+		$cliente=$this->clientes->where('id',$id)->first();
+		if ($valid != null){
+			$data=[
+				'titulo'=>'Editar cliente',
+				 'validation'=>$valid,
+				 'datos'=>$cliente
+
+			];
+		}else{
+			$data=[
+			'titulo'=>'Editar cliente',
+			 'datos'=>$cliente
 		];
+		}
+		
 		
 		echo view('header');
-		echo view('unidades/editar',$data);
+		echo view('clientes/editar',$data);
 		echo view('footer');
 	}
 	public function actualizar(){
-		$this->unidades->update(
-			$this->request->getPost('id'),
-			['nombre'=>$this->request->getPost('nombre'),
-			'nombre_corto'=>$this->request->getPost('nombre_corto')]
-		);
-		return redirect()->to(base_url().'/unidades');
+		if ($this->request->getMethod()=="post" && $this->validate($this->reglas)){
+			$this->clientes->update(
+				$this->request->getPost('id'),
+				[
+					'nombre'=>$this->request->getPost('nombre'),
+					'direccion'=>$this->request->getPost('direccion'),
+					'telefono'=>$this->request->getPost('telefono'),
+					'correo'=>$this->request->getPost('correo')
+				]
+			);
+		return redirect()->to(base_url().'/clientes');
+		}else{
+			return $this->editar($this->request->getPost('id'),$this->validator);
+		}
 	}
 	public function eliminar($id){
-		$this->unidades->update(
+		$this->clientes->update(
 			$id,
 			['activo'=>0]
 		);
-		return redirect()->to(base_url().'/unidades');
+		return redirect()->to(base_url().'/clientes');
 	}
 	public function reingresar($id){
-		$this->unidades->update(
+		$this->clientes->update(
 			$id,
 			['activo'=>1]
 		);
-		return redirect()->to(base_url().'/unidades/eliminados');
+		return redirect()->to(base_url().'/clientes/eliminados');
 	}
 
 	//--------------------------------------------------------------------
