@@ -1,3 +1,7 @@
+<?php
+    $user_session=session();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -19,7 +23,7 @@
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw">ggggg</i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="#">Activity Log</a>
@@ -47,9 +51,22 @@
                                 </nav>
                             </div>
                             <a class="nav-link" href="<?php echo base_url().'/clientes'; ?>">
-                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                            clientes
-                        </a>
+                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                                clientes
+                            </a>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayoutss" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-shopping-basket"></i></div>
+                                Administracion
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayoutss" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="<?php echo base_url().'/configuracion'; ?>">Configuracion</a>
+                                    <a class="nav-link" href="<?php echo base_url(); ?>/usuarios">Usuarios</a>
+                                    <a class="nav-link" href=" <?php echo base_url().'/categorias'; ?>">Categorias</a>
+                                </nav>
+                            </div>
+
                         </div>
                             
                     </div>
