@@ -8,17 +8,17 @@
                        </div>
                        <?php }?>
                             <form method="POST" action="<?php echo base_url();?>/usuarios/insertar" autocomplete="off">
-                            <?php csrf_field(); ?>
+                           
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
                                             <label for="">usuario</label>
-                                            <input class="form-control" id="usuario" name="usuario" typr="text" value="<?php echo set_value('usuario');?>" autofocus >
+                                            <input class="form-control" id="usuario" name="usuario" type="text" value="<?php echo set_value('usuario');?>" autofocus >
                                         </div>
 
                                         <div class="col-12 col-sm-6">
                                             <label for="">Nombre</label>
-                                            <input class="form-control" id="nombre" name="nombre" typr="text" value="<?php echo set_value('nombre');?>" >
+                                            <input class="form-control" id="nombre" name="nombre" type="text" value="<?php echo set_value('nombre');?>" >
                                         </div>
                                     </div>    
                                 </div>
@@ -26,12 +26,12 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
                                             <label for="">contraseña</label>
-                                            <input type="password" class="form-control" id="password" name="password" typr="text" value="<?php echo set_value('password');?>" autofocus >
+                                            <input type="password" class="form-control" id="password" name="password" type="text" value="<?php echo set_value('password');?>"  >
                                         </div>
 
                                         <div class="col-12 col-sm-6">
                                             <label for="">Repite contraseña</label>
-                                            <input type="password" class="form-control" id="repassword" name="repassword" typr="text" value="<?php echo set_value('repassword');?>" >
+                                            <input type="password" class="form-control" id="repassword" name="repassword" type="text" value="<?php echo set_value('repassword');?>" >
                                         </div>
                                     </div>    
                                 </div>
@@ -39,7 +39,7 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
                                             <label for="">Cajas</label>
-                                            <Select class="form-control" id="id_caja" name="id_caja" typr="text"  >
+                                            <Select class="form-control" id="id_caja" name="id_caja" type="text"  >
                                                 <option value="">  Seleccionar caja </option> 
                                                 <?php foreach($cajas as $caja){ ?>
                                                     <option value="<?php echo $caja['id'];?>" <?php  if (set_value('id_caja')==$caja['id']){ echo 'selected'; } ?> > 
@@ -51,7 +51,7 @@
                                         
                                         <div class="col-12 col-sm-6">
                                         <label for=""  >Roles</label>
-                                            <Select  class="form-control" id="id_rol" name="id_rol" typr="text"  >
+                                            <Select  class="form-control" id="id_rol" name="id_rol" type="text"  >
                                                 <option value="">  Seleccionar Roles </option> 
                                                 <?php foreach($roles as $rol){ ?>
                                                     <option value="<?php echo $rol['id'];?>" <?php  if (set_value('id_rol')==$rol['id']){ echo 'selected'; } ?> > 

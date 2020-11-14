@@ -17,12 +17,63 @@ class Productos extends BaseController{
 
 		helper(['form']);
 
-		$this->reglas=[
+		$this->reglasInsertar=[
 			'codigo'=>[
 				'rules'=>'required|is_unique[productos.codigo]',
 				'errors'=>[
 					'required'=>'El campo {field} es obligatorio.',
 					'is_unique'=>'El campo {field} debe ser unico'
+				]
+			],
+			'nombre'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'precio_venta'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'precio_compra'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'stock_minimo'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'id_unidad'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'id_categoria'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'inventariable'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			]
+
+		];
+		$this->reglasActualizar=[
+			'codigo'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
 				]
 			],
 			'nombre'=>[
@@ -108,7 +159,7 @@ class Productos extends BaseController{
 		echo view('footer');
 	}
 	public function insertar(){
-		if ($this->request->getMethod()=="post" && $this->validate($this->reglas)){
+		if ($this->request->getMethod()=="post" && $this->validate($this->reglasInsertar)){
 			$this->productos->save([
 				'nombre'=>$this->request->getPost('nombre'),
 				'codigo'=>$this->request->getPost('codigo'),
@@ -164,7 +215,7 @@ class Productos extends BaseController{
 		echo view('footer');
 	}
 	public function actualizar(){
-		if ($this->request->getMethod()=="post" && $this->validate($this->reglas)){
+		if ($this->request->getMethod()=="post" && $this->validate($this->reglasActualizar)){
 			$this->productos->update(
 				$this->request->getPost('id'),
 				['nombre'=>$this->request->getPost('nombre'),

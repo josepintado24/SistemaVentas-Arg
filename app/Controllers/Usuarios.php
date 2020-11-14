@@ -9,7 +9,7 @@ use App\Models\RolesModel;
 class Usuarios extends BaseController{
 
 	protected $usuarios, $cajas, $roles;
-	protected $reglas, $reglasLogin, $reglasCabia;
+	protected $reglas, $reglasLogin, $reglasCabia, $reglasEditar;
 
 	public function __construct(){
 		$this->usuarios=new UsuariosModel;
@@ -17,6 +17,39 @@ class Usuarios extends BaseController{
 		$this->roles=new RolesModel;
 		helper(['form']);
 
+		$this->reglasEditar=[
+			'password'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'repassword'=>[
+				'rules'=>'required|matches[password]',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.',
+					'matches'=>'Las contraseñas no coinciden.'
+				]
+			],
+			'nombre'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			],
+			'id_caja'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.',
+				]
+			],
+			'id_rol'=>[
+				'rules'=>'required',
+				'errors'=>[
+					'required'=>'El campo {field} es obligatorio.'
+				]
+			]
+		];
 		$this->reglas=[
 			'usuario'=>[
 				'rules'=>'required|is_unique[usuarios.usuario]',
@@ -57,7 +90,6 @@ class Usuarios extends BaseController{
 				]
 			]
 		];
-
 		$this->reglasLogin=[
 			'usuario'=>[
 				'rules'=>'required',
@@ -141,11 +173,11 @@ class Usuarios extends BaseController{
 			$cajas=$this->cajas->where('activo',1)->findAll();
 			$roles=$this->roles->where('activo',1)->findAll();
 			$data=[
-			'titulo'=>'Agregar usuarios',
-			'cajas'=>$cajas,
-			'roles'=>$roles,
-			'validation'=> $this->validator
-		];
+				'titulo'=>'Agregar usuarios',
+				'cajas'=>$cajas,
+				'roles'=>$roles,
+				'validation'=> $this->validator
+			];
 			
 			echo view('header');
 			echo view('usuarios/nuevo',$data);
@@ -155,19 +187,24 @@ class Usuarios extends BaseController{
 	}
 
 	public function editar($id, $valid=null){
-
+		$cajas=$this->cajas->where('activo',1)->findAll();
+		$roles=$this->roles->where('activo',1)->findAll();
 		$usuario=$this->usuarios->where('id',$id)->first();
 		if ($valid != null){
 			$data=[
 				'titulo'=>'Editar usuario',
-				 'validation'=>$valid,
-				 'datos'=>$usuario
+				'validation'=>$valid,
+				'datos'=>$usuario,
+				'cajas'=>$cajas,
+				'roles'=>$roles
 
 			];
 		}else{
 			$data=[
 			'titulo'=>'Editar usuario',
-			 'datos'=>$usuario
+			'datos'=>$usuario,
+			'cajas'=>$cajas,
+			'roles'=>$roles
 		];
 		}
 		
@@ -177,17 +214,33 @@ class Usuarios extends BaseController{
 		echo view('footer');
 	}
 	public function actualizar(){
-		if ($this->request->getMethod()=="post" && $this->validate($this->reglas)){
+		if ($this->request->getMethod()=="post" && $this->validate($this->reglasEditar)){
+			$hash=password_hash($this->request->getPost('password'),PASSWORD_DEFAULT);
+
 			$this->usuarios->update(
 				$this->request->getPost('id'),
-				['nombre'=>$this->request->getPost('nombre'),
-				'nombre_corto'=>$this->request->getPost('nombre_corto')]
-			);
-		return redirect()->to(base_url().'/usuarios');
-		}else{
+				['password'=>$hash,
+				'id_caja'=>$this->request->getPost('id_caja'),
+				'id_rol'=>$this->request->getPost('id_rol'),
+				'nombre'=>$this->request->getPost('nombre')]);
+				
+			return redirect()->to(base_url().'/usuarios');	
+		}
+		else{
+			$cajas=$this->cajas->where('activo',1)->findAll();
+			$roles=$this->roles->where('activo',1)->findAll();
+			$data=[
+				'titulo'=>'Agregar usuarios',
+				'cajas'=>$cajas,
+				'roles'=>$roles,
+				'validation'=> $this->validator
+			];
+			
 			return $this->editar($this->request->getPost('id'),$this->validator);
 		}
 	}
+
+
 	public function eliminar($id){
 		$this->usuarios->update(
 			$id,
