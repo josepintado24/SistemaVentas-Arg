@@ -5,17 +5,16 @@
                         <h4 class="mt-4"><?php echo $titulo;?></h4>
                             <div>
                                 <p>
-                                    <a href="<?php echo base_url();?>/cajas/nuevo" class="btn btn-info">Agregar</a>
-                                    <a href="<?php echo base_url();?>/cajas/eliminados" class="btn btn-warning">Eliminados</a>
+                                    <a href="<?php echo base_url();?>/roles/nuevo" class="btn btn-info">Agregar</a>
+                                    <a href="<?php echo base_url();?>/roles/eliminados" class="btn btn-warning">Eliminados</a>
                                 </p>
                             </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Numero Caja</th>
+                                                <th>Id</th>
                                                 <th>Nombre</th>
-                                                <th>Folio</th>
                                                 <th></th>
                                                 <th> </th>
                                             </tr>
@@ -25,17 +24,16 @@
                                             <?php  
                                                 foreach ($datos as $dato){?>
                                                     <tr>
-                                                        <td><?php echo $dato['numero_caja']; ?> </td>
+                                                        <td><?php echo $dato['id']; ?> </td>
                                                         <td><?php echo $dato['nombre']; ?> </td>
-                                                        <td><?php echo $dato['folio']; ?> </td>
 
                                                         <td>
-                                                            <a href="<?php echo base_url().'/cajas/editar/'. $dato['id']; ?>" class="btn btn-warning">
+                                                            <a href="<?php echo base_url().'/roles/editar/'. $dato['id']; ?>" class="btn btn-warning">
                                                                 <i class="fas fa-pencil-alt"></i>
                                                             </a>
                                                         </td>
                                                         <td>
-                                                            <a href="#" data-href="<?php echo base_url().'/cajas/eliminar/'. $dato['id']; ?>" data-toggle="modal" data-target="#modal-confirma" data-placement="top" title="Eliminar registro" class="btn btn-danger">
+                                                            <a href="#" data-href="<?php echo base_url().'/roles/eliminar/'. $dato['id']; ?>" data-toggle="modal" data-target="#modal-confirma" data-placement="top" title="Eliminar registro" class="btn btn-danger">
                                                                 <i class="fas fa-trash"></i>
                                                             </a>
                                                         </td>

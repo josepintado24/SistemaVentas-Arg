@@ -5,7 +5,7 @@
                         <h4 class="mt-4"><?php echo $titulo;?></h4>
                             <div>
                                 <p>
-                                    <a href="<?php echo base_url();?>/unidades" class="btn btn-primary">Unidades</a>
+                                    <a href="<?php echo base_url();?>/cajas" class="btn btn-primary">cajas</a>
                                    
                                 </p>
                             </div>
@@ -13,10 +13,10 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                <th>Numero Caja</th>
                                                 <th>Nombre</th>
-                                                <th>Nombre Corto</th>
-                                                <th> </th>
+                                                <th>Folio</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         
@@ -24,13 +24,13 @@
                                             <?php  
                                                 foreach ($datos as $dato){?>
                                                     <tr>
-                                                        <td><?php echo $dato['id']; ?> </td>
+                                                        <td><?php echo $dato['numero_caja']; ?> </td>
                                                         <td><?php echo $dato['nombre']; ?> </td>
-                                                        <td><?php echo $dato['nombre_corto']; ?> </td>
+                                                        <td><?php echo $dato['folio']; ?> </td>
 
                                                     
                                                         <td>
-                                                            <a href="#" data-href="<?php echo base_url().'/unidades/reingresar/'. $dato['id']; ?>" data-toggle="modal" data-target="#modal-confirma" data-placement="top" title="Reingresar registro" >
+                                                            <a href="#" data-href="<?php echo base_url().'/cajas/reingresar/'. $dato['id']; ?>" data-toggle="modal" data-target="#modal-confirma" data-placement="top" title="Reingresar registro" >
                                                                 <i class="fas fa-arrow-circle-down"></i>
                                                             </a>
                                                         </td>

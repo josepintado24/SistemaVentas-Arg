@@ -64,7 +64,8 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="<?php echo base_url().'/configuracion'; ?>">Configuracion</a>
                                     <a class="nav-link" href="<?php echo base_url(); ?>/usuarios">Usuarios</a>
-                                    <a class="nav-link" href=" <?php echo base_url().'/categorias'; ?>">Categorias</a>
+                                    <a class="nav-link" href=" <?php echo base_url().'/cajas'; ?>">Cajas</a>
+                                    <a class="nav-link" href=" <?php echo base_url().'/roles'; ?>">Roles</a>
                                 </nav>
                             </div>
 

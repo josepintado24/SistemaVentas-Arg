@@ -2,127 +2,122 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\UnidadesModel;
+use App\Models\RolesModel;
 
-class Unidades extends BaseController{
+class Roles extends BaseController{
 
-	protected $unidades;
+	protected $roles;
 	protected $reglas;
 
 	public function __construct(){
-		$this->unidades=new UnidadesModel;
+		$this->roles=new RolesModel;
 		helper(['form']);
 
 		$this->reglas=[
 			'nombre'=>[
-				'rules'=>'required',
+				'rules'=>'required|string|is_unique[roles.nombre]',
 				'errors'=>[
-					'required'=>'El campo {field} es obligatorio.'
-				]
-			],
-			'nombre_corto'=>[
-				'rules'=>'required',
-				'errors'=>[
-					'required'=>'El campo {field} es obligatorio.'
+					'required'=>'El campo {field} es obligatorio.',
+					'is_unique'=>'El campo {field} debe ser unico',
+					'string'=>'El campo {field} debe de texto'
 				]
 			]
 		];
 	}
 	public function index($activo=1){
-		$unidades=$this->unidades->where('activo',$activo)->findAll();
+		$roles=$this->roles->where('activo',$activo)->findAll();
 		$data=[
-			'titulo'=>'Unidades',
-			 'datos'=>$unidades
+			'titulo'=>'roles',
+			 'datos'=>$roles
 		];
 		echo view('header');
-		echo view('unidades/unidades', $data);
+		echo view('roles/roles', $data);
 		echo view('footer');
 	}
 	public function eliminados($activo=0){
-		$unidades=$this->unidades->where('activo',$activo)->findAll();
+		$roles=$this->roles->where('activo',$activo)->findAll();
 		$data=[
-			'titulo'=>'Unidades Eliminadas',
-			 'datos'=>$unidades
+			'titulo'=>'roles Eliminadas',
+			 'datos'=>$roles
 		];
 		echo view('header');
-		echo view('unidades/eliminados', $data);
+		echo view('roles/eliminados', $data);
 		echo view('footer');
 	}
 
 	public function nuevo(){
 		$data=[
-			'titulo'=>'Agregar unidades'
+			'titulo'=>'Agregar roles'
 		];
 		echo view('header');
-		echo view('unidades/nuevo',$data);
+		echo view('roles/nuevo',$data);
 		echo view('footer');
 	}
 	public function insertar(){
 		if ($this->request->getMethod()=="post" && $this->validate($this->reglas)){
-			$this->unidades->save([
-				'nombre'=>$this->request->getPost('nombre'),
-				'nombre_corto'=>$this->request->getPost('nombre_corto')
+			$this->roles->save([
+				'nombre'=>$this->request->getPost('nombre')
 				]);
-			return redirect()->to(base_url().'/unidades');	
+			return redirect()->to(base_url().'/roles');	
 		}
 		else{
 			$data=[
-				'titulo'=>'Agregar unidades',
+				'titulo'=>'Agregar roles',
 				'validation'=> $this->validator
 			];
 			echo view('header');
-			echo view('unidades/nuevo',$data);
+			echo view('roles/nuevo',$data);
 			echo view('footer');
 		}
 		
 	}
 
 	public function editar($id, $valid=null){
-		$unidad=$this->unidades->where('id',$id)->first();
+		$role=$this->roles->where('id',$id)->first();
 		if ($valid != null){
 			$data=[
-				'titulo'=>'Editar Unidad',
+				'titulo'=>'Editar role',
 				 'validation'=>$valid,
-				 'datos'=>$unidad
+				 'datos'=>$role
 
 			];
 		}else{
 			$data=[
-			'titulo'=>'Editar Unidad',
-			 'datos'=>$unidad
+			'titulo'=>'Editar role',
+			 'datos'=>$role
 		];
 		}
 		
 		
 		echo view('header');
-		echo view('unidades/editar',$data);
+		echo view('roles/editar',$data);
 		echo view('footer');
 	}
 	public function actualizar(){
 		if ($this->request->getMethod()=="post" && $this->validate($this->reglas)){
-			$this->unidades->update(
+			$this->roles->update(
 				$this->request->getPost('id'),
 				['nombre'=>$this->request->getPost('nombre'),
 				'nombre_corto'=>$this->request->getPost('nombre_corto')]
 			);
-		return redirect()->to(base_url().'/unidades');
+		return redirect()->to(base_url().'/roles');
 		}else{
 			return $this->editar($this->request->getPost('id'),$this->validator);
 		}
 	}
 	public function eliminar($id){
-		$this->unidades->update(
+		$this->roles->update(
 			$id,
 			['activo'=>0]
 		);
-		return redirect()->to(base_url().'/unidades');
+		return redirect()->to(base_url().'/roles');
 	}
 	public function reingresar($id){
-		$this->unidades->update(
+		$this->roles->update(
 			$id,
 			['activo'=>1]
 		);
-		return redirect()->to(base_url().'/unidades/eliminados');
+		return redirect()->to(base_url().'/roles/eliminados');
 	}
 
 	//--------------------------------------------------------------------

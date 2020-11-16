@@ -5,7 +5,7 @@
                         <h4 class="mt-4"><?php echo $titulo;?></h4>
                             <div>
                                 <p>
-                                    <a href="<?php echo base_url();?>/unidades" class="btn btn-primary">Unidades</a>
+                                    <a href="<?php echo base_url();?>/usuarios" class="btn btn-primary">usuarios</a>
                                    
                                 </p>
                             </div>
@@ -14,9 +14,9 @@
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
+                                                <th>Usuario</th>
                                                 <th>Nombre</th>
-                                                <th>Nombre Corto</th>
-                                                <th> </th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         
@@ -25,12 +25,12 @@
                                                 foreach ($datos as $dato){?>
                                                     <tr>
                                                         <td><?php echo $dato['id']; ?> </td>
+                                                        <td><?php echo $dato['usuario']; ?> </td>
                                                         <td><?php echo $dato['nombre']; ?> </td>
-                                                        <td><?php echo $dato['nombre_corto']; ?> </td>
 
                                                     
                                                         <td>
-                                                            <a href="#" data-href="<?php echo base_url().'/unidades/reingresar/'. $dato['id']; ?>" data-toggle="modal" data-target="#modal-confirma" data-placement="top" title="Reingresar registro" >
+                                                            <a href="#" data-href="<?php echo base_url().'/usuarios/reingresar/'. $dato['id']; ?>" data-toggle="modal" data-target="#modal-confirma" data-placement="top" title="Reingresar registro" >
                                                                 <i class="fas fa-arrow-circle-down"></i>
                                                             </a>
                                                         </td>

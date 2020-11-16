@@ -7,22 +7,32 @@
                          <?php echo $validation->listErrors(); ?>
                        </div>
                        <?php }?>
-                            <form method="POST" action="<?php echo base_url();?>/unidades/insertar" autocomplete="off">
+                            <form method="POST" action="<?php echo base_url();?>/cajas/insertar" autocomplete="off">
                             <?php csrf_field(); ?>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
-                                            <label for="">Nombre</label>
-                                            <input class="form-control" id="nombre" name="nombre" typr="text" value="<?php echo set_value('nombre');?>" autofocus >
+                                            <label for="">Folio</label>
+                                            <input class="form-control" id="folio" name="folio" type="text" value="<?php echo set_value('folio');?>" autofocus >
                                         </div>
 
                                         <div class="col-12 col-sm-6">
-                                            <label for="">Nombre corto</label>
-                                            <input class="form-control" id="nombre_corto" name="nombre_corto" typr="text" value="<?php echo set_value('nombre_corto');?>" >
+                                            <label for="">Nombre</label>
+                                            <input class="form-control" id="nombre" name="nombre" type="text" value="<?php echo set_value('nombre');?>" >
                                         </div>
                                     </div>    
                                 </div>
-                                    <a href="<?php echo base_url();?>/unidades" class="btn btn-primary">Regresar</a>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <label for="">Numero Caja</label>
+                                            <input class="form-control" id="numero_caja" name="numero_caja" type="text" value="<?php echo set_value('numero_caja');?>"  >
+                                        </div>
+
+                                        
+                                    </div>    
+                                </div>
+                                    <a href="<?php echo base_url();?>/cajas" class="btn btn-primary">Regresar</a>
                                     <button type="submit" class="btn btn-success">Guardar </button>
                                
                                 
