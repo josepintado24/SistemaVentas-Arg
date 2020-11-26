@@ -14,12 +14,12 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
                                             <label for="">código</label>
-                                            <input class="form-control" id="codigo" name="codigo" typr="text" autofocus value="<?php echo set_value('codigo');?>">
+                                            <input class="form-control" id="codigo" name="codigo" type="text" autofocus value="<?php echo set_value('codigo');?>">
                                         </div>
 
                                         <div class="col-12 col-sm-6">
                                             <label for="">Nombre</label>
-                                            <input class="form-control" id="nombre" name="nombre" typr="text" value="<?php echo set_value('nombre');?>">
+                                            <input class="form-control" id="nombre" name="nombre" type="text" value="<?php echo set_value('nombre');?>">
                                         </div>
                                         
                                     </div>    
@@ -28,7 +28,7 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
                                             <label for="">Unidad</label>
-                                            <Select class="form-control" id="id_unidad" name="id_unidad" typr="text"  >
+                                            <Select class="form-control" id="id_unidad" name="id_unidad" type="text"  >
                                                 <option value="">  Seleccionar unidad </option> 
                                                 <?php foreach($unidades as $unidad){ ?>
                                                     <option value="<?php echo $unidad['id'];?>" <?php  if (set_value('id_unidad')==$unidad['id']){ echo 'selected'; } ?> > 

@@ -11,6 +11,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Sistemas venta</title>
+        <script src="<?php echo base_url();?>/js/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
         <link href="<?php echo base_url();?>/css/styles.css" rel="stylesheet" />
         <link href="<?php echo base_url();?>/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="<?php echo base_url();?>/js/all.min.js" crossorigin="anonymous"></script>
@@ -55,12 +56,25 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 clientes
                             </a>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayoutss" aria-expanded="false" aria-controls="collapseLayouts">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuCompras" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-cash-register"></i></div>
+                                Compras
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="menuCompras" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="<?php echo base_url().'/compras/nuevo'; ?>">Nueva Compra</a>
+                                    <a class="nav-link" href="<?php echo base_url(); ?>/compras">Compras</a>
+                                </nav>
+                            </div>
+
+
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#administracionDetalle" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-shopping-basket"></i></div>
                                 Administracion
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapseLayoutss" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <div class="collapse" id="administracionDetalle" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="<?php echo base_url().'/configuracion'; ?>">Configuracion</a>
                                     <a class="nav-link" href="<?php echo base_url(); ?>/usuarios">Usuarios</a>
